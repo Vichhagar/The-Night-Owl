@@ -1,4 +1,13 @@
+{% for m in messages %}       
+<div class="message">
+    <p>{{ m }}</p>
+</div>
+{% empty %}
+{% endfor %}
+
 <h1>Home page</h1>
+<p>{{ request.user.username }}</p>
+<a href="{% url 'chatroom:logout' %}">Log Out</a>
 
 {% for room in rooms %}
     <h1><a href="{% url 'chatroom:room' room.slug %}">Room: {{ room.name }}</a></h1>

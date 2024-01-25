@@ -1,0 +1,19 @@
+{% for m in messages %}       
+<div class="message">
+    <p>{{ m }}</p>
+</div>
+{% empty %}
+{% endfor %}
+
+<form method="POST">
+    {% csrf_token %}
+    <div class="text">
+        <input id="username" type="text" placeholder="Username" name="username">
+    </div>
+    <div class="text">
+        <input id="username" type="password" placeholder="Password" name="password">
+    </div>
+
+    <input type="submit" id="form-submit" value="Sign In">
+    <p style="text-align: center;">Did not have an account yet: <a href="{% url 'chatroom:register' %}">Signup</a></p>
+</form>

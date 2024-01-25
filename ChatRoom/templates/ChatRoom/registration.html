@@ -1,0 +1,26 @@
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="name-date">
+
+        <input id="activity-name" type="text" placeholder="FirstName" name="first_name">
+        <input id="activity-date" type="text" placeholder="Last Name" name="last_name">
+
+    </div>
+    <div class="text">
+        <input id="username" type="text" placeholder="Username" name="username">
+    </div>
+    <div class="open-close-date">
+        <input id="activity-open-date" type="password" placeholder="Password" name="password1">
+        <input id="activity-close-date" type="password" placeholder="Confirm password" name="password2">
+    </div>
+    <div class="text">
+        <textarea id="activity-description" placeholder="Bio" name="userBio"></textarea>
+    </div>
+    
+    <div class="pro-img">
+        <label for="Image">Profile Image:</label>
+        <input id="profileImage" type="file" placeholder="image" name="profileImage">
+    </div>
+    <input type="submit" id="form-submit" value="Create account">
+    <p style="text-align: center;">Already have an account: <a href="{% url 'chatroom:login' %}">Signin</a></p>
+</form>
