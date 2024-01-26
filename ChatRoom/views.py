@@ -54,6 +54,7 @@ def home(request):
     rooms = Room.objects.all()
     return render(request, "ChatRoom/home.html", {"rooms": rooms})
 
+@login_required(login_url='chatroom:login')
 def room(request, slug):
     print(slug)
     return render(request, "ChatRoom/room.html", {"slug":slug})
