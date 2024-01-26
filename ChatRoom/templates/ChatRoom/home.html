@@ -7,6 +7,7 @@
 
 <h1>Home page</h1>
 <p>{{ request.user.username }}</p>
+<a href="{% url 'chatroom:user_dashboard' request.user.id %}">Profile</a>
 <a href="{% url 'chatroom:logout' %}">Log Out</a>
 
 {% for room in rooms %}

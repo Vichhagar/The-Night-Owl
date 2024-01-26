@@ -56,5 +56,10 @@ def home(request):
 
 @login_required(login_url='chatroom:login')
 def room(request, slug):
-    print(slug)
-    return render(request, "ChatRoom/room.html", {"slug":slug})
+    room = Room.objects.get(slug=slug)
+    return render(request, "ChatRoom/room.html", {"room":room})
+
+@login_required(login_url='chatroom:login')
+def userDashboard(request, id):
+    user = User.objects.get(id=id)
+    return render(request, "ChatRoom/user_dashboard.html", {"user": user})
