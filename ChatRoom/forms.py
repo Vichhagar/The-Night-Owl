@@ -1,5 +1,5 @@
 from django import forms
-from .models import User
+from .models import User, Room
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 
@@ -26,4 +26,12 @@ class UpdateUserForm(forms.ModelForm):
             "last_name",
             "userBio",
             "profileImage"
+        ]
+
+class CreateRoomForm(forms.ModelForm):
+    class Meta:
+        model = Room
+        fields = [
+            "name",
+            "room_type"
         ]
