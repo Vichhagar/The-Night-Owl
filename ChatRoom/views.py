@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from .models import User, Room, Text
-from .forms import CreateUserForm, UpdateUserForm
+from .forms import CreateUserForm, UpdateUserForm, CreateRoomForm
 
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
@@ -37,8 +37,6 @@ def register(request):
         print(form)
         if request.method == "POST":
             form = CreateUserForm(request.POST, files=request.FILES)
-            
-            print(request.POST)
             if form.is_valid():
                 form.save()
                 messages.success(request, "account created")
@@ -63,3 +61,18 @@ def room(request, slug):
 def userDashboard(request, id):
     user = User.objects.get(id=id)
     return render(request, "ChatRoom/user_dashboard.html", {"user": user})
+
+def create_room(request):
+    form = CreateRoomForm()
+    print(form)
+    if request.method == "POST":
+        form = CreateRoomForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "room created")
+            return redirect('chatroom:home')
+
+    context = {
+        "form" : form
+    }
+    return render(request, 'ChatRoom/create_room.html', context)
