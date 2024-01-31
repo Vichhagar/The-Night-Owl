@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from .models import User, Room, Text
 from .forms import CreateUserForm, UpdateUserForm, CreateRoomForm
+import datetime
 
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
@@ -64,11 +65,14 @@ def userDashboard(request, id):
 
 def create_room(request):
     form = CreateRoomForm()
-    print(form)
     if request.method == "POST":
         form = CreateRoomForm(request.POST)
         if form.is_valid():
-            form.save()
+            room = form.save(commit=False)
+            room.host = request.user
+            room.room_type = request.POST["room_type"]
+            room.slug = str(datetime.datetime.now())
+            room.save()
             messages.success(request, "room created")
             return redirect('chatroom:home')
 
