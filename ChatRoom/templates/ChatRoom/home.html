@@ -12,6 +12,6 @@
 <a href="{% url 'chatroom:logout' %}">Log Out</a>
 
 {% for room in rooms %}
-    <h1><a href="{% url 'chatroom:room' room.slug %}">Room: {{ room.name }}</a></h1>
+    <h1><a href="{% url 'chat:home' room.slug %}">Room: {{ room.name }}</a></h1>
     <h2>Type:{{ room.room_type }}</h2>
 {% endfor %}
