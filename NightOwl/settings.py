@@ -19,6 +19,8 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'daphne',
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -28,6 +30,15 @@ INSTALLED_APPS = [
     'ChatRoom',
     'chat'
 ]
+
+ASGI_APPLICATION = 'NightOwl.asgi.application'
+
+# in memory database: in production, use reddis
+CHANNEL_LAYERS = {
+    'default' : {
+        'BACKEND':'channels.layers.InMemoryChannelLayer'
+    }
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

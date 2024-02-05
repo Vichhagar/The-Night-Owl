@@ -1,5 +1,55 @@
-<p1>CHAT ROOM APP</p1>
-<br>
-{{ room.name }}
-Created By => 
-{{ room.host.first_name }}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lobby</title>
+</head>
+<body>
+    <h1>Let's Chat </h1>
+    <div>[Room name: ]</div>
+    <div id="room_name">{{ room.name }}</div>
+    <div id="room_slug">{{ room.slug }}</div>
+    <form id="form">
+        <input type="text" name="message">
+    </form>
+
+    <div id="messages"></div>
+
+    <script>
+        let room_name = document.getElementById('room_slug').innerText
+        let url = `ws://${window.location.host}/ws/socket-server/${room_name}/`;
+        const chatSocket = new WebSocket(url);
+
+        chatSocket.onmessage = function(e) {
+            let data = JSON.parse(e.data);
+            console.log('Data: ', data)
+
+            if(data.type === 'chat') {
+                let messages = document.getElementById('messages')
+                messages.insertAdjacentHTML('beforeend', `<div>
+                        <p>${data.message}</p>
+                    </div>`)
+            }
+
+            // alert(`New message: ${data.message}`);
+
+            // Check if the message is not from the sender
+            // if (data.sender !== currentUsername) {
+            //     // Display an alert for messages from other users
+            //     alert(`New message from ${data.sender}: ${data.message}`);
+            // }
+        }
+
+        let form = document.getElementById('form');
+        form.addEventListener('submit', e => {
+            e.preventDefault();
+            let message = e.target.message.value;
+            chatSocket.send(JSON.stringify({
+                'message': message
+            }))
+            form.reset()
+        })
+    </script>
+</body>
+</html>
