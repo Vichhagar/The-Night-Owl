@@ -29,7 +29,7 @@ class Room(models.Model):
 
 
 class Text(models.Model):
-    date_created = models.DateTimeField()
+    date_created = models.DateTimeField(auto_now_add=True)
     text_body = models.TextField()
     text_sender = models.ForeignKey(User, on_delete=models.CASCADE)
     text_room = models.ForeignKey(Room, on_delete=models.CASCADE)
